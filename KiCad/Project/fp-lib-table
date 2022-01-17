@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name MAX3107)(type KiCad)(uri /home/sanderspeetjens/Documents/ThomasMore/PracticeEnterprise/KiCad/Project/libs/MAX3107/footprints.pretty)(options "")(descr ""))
+  (lib (name arduino)(type KiCad)(uri /home/sanderspeetjens/Documents/ThomasMore/PracticeEnterprise/KiCad/Project/libs/arduino-kicad-library/Arduino.pretty)(options "")(descr ""))
+)
