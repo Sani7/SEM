@@ -1,4 +1,0 @@
-(sym_lib_table
-  (lib (name MAX3107)(type Legacy)(uri /home/sanderspeetjens/Documents/ThomasMore/PracticeEnterprise/KiCad/Project/libs/MAX3107/2021-12-23_18-30-57.lib)(options "")(descr ""))
-  (lib (name arduino)(type Legacy)(uri ${KIPRJMOD}/libs/arduino-kicad-library/arduino.lib)(options "")(descr ""))
-)
