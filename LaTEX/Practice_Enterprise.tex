@@ -18,7 +18,10 @@
 \usepackage{tkz-fct}
 
 \usepackage{pdfpages}
+\usepackage{pdflscape}
 \usepackage{titlesec, blindtext, color}
+\usepackage{tabto}
+\usepackage[font=small,labelfont=bf,tableposition=top]{caption}
 
 \usetikzlibrary{calc,intersections,through,backgrounds,decorations.markings,decorations.pathmorphing}
 \usetikzlibrary{arrows,automata,shapes,shapes.geometric,positioning,math,backgrounds,fadings}
@@ -220,6 +223,7 @@
 %% HYPHENATION
 \hyphenation{proef-on-der-vin-de-lijk}
 
+\DeclareCaptionLabelFormat{andtable}{#1~#2  \&  \tablename~\thetable}
 
 %% DOCUMENT
 
@@ -277,7 +281,7 @@
 \thispagestyle{empty}
 I'm Sander Speetjens, a first year student Electronics Embedded Software at Thomas More - Campus De Nayer.
 \ \\ \ \\
-This bundle will be a summary of all of the information that I gathered over the course of half a semester about my project Smart Energy Meter (SEM) or making our digital electricity meter more smart with a separate observation station. I had chosen this subject, because recently our energy supplier installed one of their new energy meters at home and I wanted to know our energy consumption. The system had to be reliable in the long term, but also consume little energy. This was quite challenging in terms of software, because there was a design constrained that we couldn't use any pre-written libraries or platforms like Arduino. With this practice enterprise, I want to demonstrate that I can apply my knowledge gained in secondary school and university to both the Electronic and Mathematical parts. Moreover, this was the perfect moment to focus on my favourite subjects, namely the combination of hardware, software and mathematics.
+This bundle will be a summary of all of the information that I gathered over the course of half a semester about my project Smart Energy Meter (SEM) or making my digital electricity meter more smart with a separate observation station. I had chosen this subject, because recently our energy supplier installed one of their new energy meters at home and I wanted to know our energy consumption. The system had to be reliable in the long term, but also consume little energy. This was quite challenging in terms of software, because there was a design constrained that we couldn't use any pre-written libraries or platforms like Arduino. With this practice enterprise, I want to demonstrate that I can apply my knowledge gained in secondary school and university to both the Electronic and Mathematical parts. Moreover, this was the perfect moment to focus on my favourite subjects, namely the combination of hardware, software and mathematics.
 \ \\ \ \\
 Because I could not have achieved all this without help from others, I would like to thank a few people. First and foremost, I would like to thank my teachers for assisting me with the technical and mathematical aspects of my practice entry.  I would also like to thank my friends who have worked together with me to make this possible. 
 Finally, I would also like to thank my parents, who have always supported me and helped me review my assignments.  I would also like to explicitly thank my father, Tim Speetjens, for helping me develop a MySQL interface written in PHP.
@@ -322,18 +326,60 @@ Finally, I would also like to thank my parents, who have always supported me and
 The digital meters for electricity and gas were introduced in Flanders on 1 July 2019. Since then, they have replaced the old, mechanical meters that are no longer in circulation. Fluvius automatically installs them at new housing developments or renovations where the electricity connection is renewed. In addition, Fluvius launched a major geographical roll-out this spring to install such meters at every household and small business in Flanders. This will be organised by region, town or municipality. The roll-out aims at a complete conversion by 2029, with the main acceleration in the next three years. By the end of 2024, 80\% of homes should have digital meters.
 
 \subsection{User-Ports}
-These digital meters contain 2 User ports, which you are able to read you're consumption/production statistics from. One of the ports is a HAN port and you can use this to connect another device to your smart meter. For example, a device that provides more insight into your energy consumption.
+These digital meters contain 2 User ports, which you are able to read you're consumption/production statistics from. The P1 port follows the DSMR 5 standard of the Dutch Smart Meter extended with the e-Mucs specification.
+The S1 port provides a limited possibility of data and is going to be removed from the newer meters and is not going to be used in this project.
+\subsection{Physical connection}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=3cm]{RJ12.png}
+    \qquad
+    \begin{tabular}{l|c} % <-- Alignments: 1st column left, 2nd middle with vertical lines in between
+    \hline
+      \textbf{Pin} & \textbf{Signal}\\
+      \hline
+      1 & 5V power supply\\
+      2 & Data request (5V)\\
+      3 & Data GND\\
+      4 & Not connected\\
+      5 & Data (open drain)\\
+      6 & GND\\
+    \end{tabular}
+    \captionlistentry[table]{RJ12 connector and the pinout for the P1 port}
+    \captionsetup{labelformat=andtable}
+    \caption{RJ12 connector and the pinout for the P1 port}
+  \end{figure}
+  
+\subsection{Internals of the meter}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.9\textwidth]{MeterIntern.png}
+  \caption{The internal workings of the Fluvius Meter}
+\end{figure}
+\subsubsection{+5V Power supply}
+The P1 interface provides a stable +5V DC power supply via "+5V" (pin 1) and "GND"(pin 6) lines to provide a connected IoT device with a power source.
+
+U = 5,0 V ( max = 5,5 V with I = 0 mA , min = 4,9 V with I = 250 mA )
+
+\subsubsection{Data request}
+The P1 port is activated (will start sending data) by setting "Data request" (pin 2) high (4,0V to 5,5V). While recieving data, this line must be kept high.
+
+\textbf{Warning: To stop receiving data the "Data request" line must be put in a high impedance mode and must not be connected to the GND or 0V}
+
+\subsubsection{Data}
+Here we run into our first problem. Due to the use of optocouplers, the "Data" (pin 5) line must be designed as an Open Collector output and must be logically inverted or inverted via software before it can be used with IoT devices.
+
+A "Data" line LOW has a voltage of 0,2 V (0 - 1V), HIGH has a voltage provided by a pull-up resistor to the VCC of the microcontroller with a maximum current of 30 mA.
+For more information go to \url{https://www.netbeheernederland.nl/_upload/Files/Slimme_meter_15_a727fce1f1.pdf}
 \vfill
 \eject
 \chapter{Project specifications}
 \section{Components used}
 \begin{itemize}
-	\item 2 x Arduino (Pro) Micro
-	\item Raspberry Pi
-	\item Waveshare e-paper display 3.7 inch 480x280px
-	\item 2x ESP01 \& logic shifting board
-	\item MAX3107 protocol translator (UART =$>$ SPI)
-	\item TSS721A M-bus to UART converter
+	\item ESP32-WROOM\tabto{11cm}(€5)
+	\item Raspberry Pi/ PC\tabto{11cm}(Free)
+	\item Waveshare e-paper display 3.7 inch 480x280px\tabto{11cm}(€42,13)
+	\item extra components\tabto{11cm}(€20)
 	
 \end{itemize}
 
@@ -348,8 +394,12 @@ The display is the most important part of this project because it is the only vi
 All of the parts are powered by a 5V wall adapter.
 
 
-
-\includepdf[pages=1, landscape=true]{../PE-Hardware.pdf}
-\includepdf[pages=-]{../Blokschema-Programma.pdf}
+\begin{landscape}
+\includepdf[landscape=true, pagecommand=\section{Hardware Diagram}, pages=1]{Hardware.pdf}
+\end{landscape}
+\includepdf[pagecommand=\section{Block diagram}, pages=-, scale=.95]{GIP-Blokschema-Programma.pdf}
+\begin{landscape}
+\includepdf[landscape=true, scale=.75, pagecommand=\section{Gantt Chart}, pages=1]{Gantt.pdf}
+\end{landscape}
 
 \end{document}
