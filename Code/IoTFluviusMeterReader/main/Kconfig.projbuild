@@ -1,0 +1,51 @@
+menu "IoT Fluvius Meter Config"
+    choice USE_SD
+        prompt "Use SD card for config"
+        default USE_CRED_SD_CARD
+        help
+            To be able to switch between the config fron the config menu to an SD card.
+
+        config USE_CRED_SD_CARD
+            bool "From SD Card"
+        config USE_CRED_CONFIG
+            bool "From Config"
+    endchoice
+
+    config ESP_WIFI_SSID
+        string "WiFi SSID"
+        default "myssid"
+        help
+            SSID (network name) for the IoT Device to connect to.
+
+    config ESP_WIFI_PASSWORD
+        string "WiFi Password"
+        default "mypassword"
+        help
+            WiFi password (WPA or WPA2) for the IoT Device to use.
+    config ESP_MAXIMUM_RETRY
+        int "Maximum retry"
+        default 5
+        help
+            Set the Maximum retry to avoid station reconnecting to the AP unlimited when the AP is really inexistent.
+    
+    config ESP_SERVER_IP
+        string "HTTP Server IP"
+            default "192.168.178.4"
+            help
+                The IP address of an HTTP server for the ESP to connect to.
+    config ESP_SERVER_PORT
+        string "HTTP Server PORT"
+            default "80"
+            help
+                The Port that the HTTP server listened to.
+    config ESP_SERVER_URI
+        string "Web URI"
+        default "/get-data.php"
+        help
+            The specific file that the ESP will ask for.
+    config ESP_SERVER_API_KEY
+        string "HTTP Server api key"
+        default ""
+        help
+            The API key the client uses to identify itself.
+endmenu
