@@ -78,20 +78,17 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
     }
     return ESP_OK;
 }
-
-void publish_received_data(fluviusData data, http_server_info info)
+/**
+ * @brief This function sets everything up for doing an HTTP Post request to the provided server
+ *          You have to have internet acces before calling this function though
+ * 
+ * @param info data about the server
+ * @param data what to write to the server
+ */
+void HTTP_Post(http_server_info info, char* data)
 {
     static const char *TAG = "HTTP_CLIENT";
 
-    char post_data[500]; // The request will be build in this String
-    sprintf(post_data, "api_key=%s&UL1=%.1f&UL2=%.1f&UL3=%.1f&IL1=%.1f&IL2=%.1f&IL3=%.1f&Pcl=%.3f&Pch=%.3f&Ppl=%.3f&Pph=%.3f&Pc=%.3f&Pp=%.3f&Vg=%.3f&Vw=%.3f",
-            info.api_key, data.UL1, data.UL2, data.UL3, data.IL1, data.IL2,
-            data.IL3, data.CONSUMPTION_HIGH_TARIF,
-            data.CONSUMPTION_LOW_TARIF, data.PRODUCTION_HIGH_TARIF,
-            data.PRODUCTION_LOW_TARIF, data.TOTAL_POWER_CONSUMPTION,
-            data.TOTAL_POWER_PRODUCTION, data.GAS_METER_M3, data.WATER_METER_M3);
-
-    ESP_LOGI("DEBUG", "%s", post_data);
     ESP_LOGI("DEBUG", "%s %d %s", info.ip, info.port, info.uri);
     char local_response_buffer[MAX_HTTP_OUTPUT_BUFFER] = {0};
     /**
@@ -115,7 +112,7 @@ void publish_received_data(fluviusData data, http_server_info info)
     // POST
     esp_http_client_set_method(client, HTTP_METHOD_POST);
     esp_http_client_set_header(client, "Content-Type", "application/x-www-form-urlencoded");
-    esp_http_client_set_post_field(client, post_data, strlen(post_data));
+    esp_http_client_set_post_field(client, data, strlen(data));
     esp_err_t err = esp_http_client_perform(client);
     if (err == ESP_OK)
     {

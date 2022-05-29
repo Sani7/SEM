@@ -1,5 +1,16 @@
 #include "IoTFluviusMeterReader.h"
 
+/**
+ * @brief Search for settings in a provided buffer, copy to returnBuff if found
+ * 
+ * @param fileContent the data to search in
+ * @param contentLength the sizeof the buffer
+ * @param settingName the name of the setting you want to search for ex SSID
+ * @param returnBuff the buffer to write to when the setting is found
+ * @param returnLength the sizeof the provided buffer
+ * @return true didn't find the setting
+ * @return false did find the setting
+ */
 bool readSetting(char *fileContent, int contentLength, const char *settingName, char *returnBuff, int returnLength)
 {
   // strncpy(buf, key, l);
@@ -31,7 +42,15 @@ bool readSetting(char *fileContent, int contentLength, const char *settingName, 
   }
   return true;
 }
-
+/**
+ * @brief Read all of the data from an SD card
+ * 
+ * @param fileName the name of the file to read
+ * @param content the buffer to copy the data to
+ * @param length the sizeof the buffer
+ * @return true was not able to read the file content
+ * @return false was able to read the file content
+ */
 bool readFileContents(const char *fileName, char *content, int length)
 {
   static const char *TAG = "SD Card";
@@ -68,7 +87,7 @@ bool readFileContents(const char *fileName, char *content, int length)
   if (ret != ESP_OK)
   {
     ESP_LOGE(TAG, "Failed to initialize bus.");
-    return -1;
+    return true;
   }
 
   // This initializes the slot without card detect (CD) and write protect (WP) signals.
@@ -93,7 +112,7 @@ bool readFileContents(const char *fileName, char *content, int length)
                     "Make sure SD card lines have pull-up resistors in place.",
                esp_err_to_name(ret));
     }
-    return -1;
+    return true;
   }
   ESP_LOGI(TAG, "Filesystem mounted");
 
@@ -110,7 +129,7 @@ bool readFileContents(const char *fileName, char *content, int length)
   if (fp == NULL)
   {
     ESP_LOGE(TAG, "Failed to open file for writing");
-    return -2;
+    return true;
   }
 
   int i = 0;
@@ -133,5 +152,5 @@ bool readFileContents(const char *fileName, char *content, int length)
 
   // deinitialize the bus after all devices are removed
   spi_bus_free(host.slot);
-  return 0;
+  return false;
 }

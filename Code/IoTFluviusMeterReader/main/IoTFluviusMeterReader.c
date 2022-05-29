@@ -43,6 +43,11 @@ void app_main(void)
   xTaskCreate(MeterTask, "MeterTask", 1024*8, NULL, 5, NULL);
 }
 
+/**
+ * @brief Main task read UART, decode and Post
+ * 
+ * @param arg no arguments necessary
+ */
 void MeterTask(void* arg)
 {
   long startMillis;
@@ -61,7 +66,7 @@ void MeterTask(void* arg)
 
     ESP_LOGI(TAG, "Reading Data");
     // Read data
-    if (read_datagram(uartData))
+    if (read_datagram(uartData, sizeof(uartData)))
     {
       ESP_LOGI(TAG, "Bad datagram read");
       gpio_set_level(METER_REQ, false);
@@ -81,8 +86,18 @@ void MeterTask(void* arg)
     }
 
     // Publish data to MariaDB
-    ESP_LOGI("DEBUG", "%s %d %s", info.ip, info.port, info.uri);
-    publish_received_data(data, info);
+
+    // Prepare the data
+    char post_data[500]; // The request will be build in this String
+    sprintf(post_data, "api_key=%s&UL1=%.1f&UL2=%.1f&UL3=%.1f&IL1=%.1f&IL2=%.1f&IL3=%.1f&Pcl=%.3f&Pch=%.3f&Ppl=%.3f&Pph=%.3f&Pc=%.3f&Pp=%.3f&Vg=%.3f&Vw=%.3f",
+            info.api_key, data.UL1, data.UL2, data.UL3, data.IL1, data.IL2,
+            data.IL3, data.CONSUMPTION_HIGH_TARIF,
+            data.CONSUMPTION_LOW_TARIF, data.PRODUCTION_HIGH_TARIF,
+            data.PRODUCTION_LOW_TARIF, data.TOTAL_POWER_CONSUMPTION,
+            data.TOTAL_POWER_PRODUCTION, data.GAS_METER_M3, data.WATER_METER_M3);
+
+    // Post
+    HTTP_Post(info, post_data);
 
     // Ready for next request
     gpio_set_level(LED_ACT, false);
@@ -94,6 +109,14 @@ void MeterTask(void* arg)
   }
 }
 
+/**
+ * @brief setup a gpio pin
+ * 
+ * @param pin which pin? (number)
+ * @param mode Input, Output, Input/Output
+ * @param pull Pull-up/ Pull-down/ Floating
+ * @param inter Interrupt on this pin?
+ */
 void configure_pin(gpio_num_t pin, gpio_mode_t mode, gpio_pull_mode_t pull, gpio_int_type_t inter)
 {
   ESP_LOGI(TAG, "GPIO[%d] configured as an %s", pin, mode < 2 ? "imput" : "output");

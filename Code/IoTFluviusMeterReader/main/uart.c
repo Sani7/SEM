@@ -1,5 +1,9 @@
 #include "IoTFluviusMeterReader.h"
 
+/**
+ * @brief initialize uart1
+ * 
+ */
 void uart_init(void)
 {
     const uart_config_t uart_config = {
@@ -18,6 +22,13 @@ void uart_init(void)
     uart_set_pin(UART_NUM_1, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 }
 
+/**
+ * @brief send data over uart1
+ * 
+ * @param logName Tag name for loging
+ * @param data data to write to the uart
+ * @return int the amount of bytes written
+ */
 int sendData(const char *logName, const char *data)
 {
     const int len = strlen(data);
@@ -26,10 +37,17 @@ int sendData(const char *logName, const char *data)
     return txBytes;
 }
 
-bool read_datagram(char *data)
+/**
+ * @brief read the datagram of the uart bus and copy it to the data variable
+ * 
+ * @param data the buffer to write the data to
+ * @param len the sizeof the buffer
+ * @return true not able to read a valid datagram
+ * @return false was able to read a valid datagram
+ */
+bool read_datagram(char *data, int len)
 {
     bool ret = true;
-    size_t data_len;
     bool startDetected = false;
     bool fullDatagram = false;
     int readPointer = 0;
@@ -60,23 +78,29 @@ bool read_datagram(char *data)
                 break;
             }
             // End of datagram not found
-            if (readPointer > 2048)
+            if (readPointer == len - 1)
             {
                 ESP_LOGI("UART", "Invalid Datagram > No end detected\n");
                 readPointer = 0;
                 startDetected = false;
                 ret = true;
+                memset(data, 0, len);
+                break;
             }
         }
         uart_read_bytes(UART_NUM_1, incomingByte, 1, 100);
-        ESP_ERROR_CHECK(uart_get_buffered_data_len(UART_NUM_1, &data_len));
     }
-    ESP_ERROR_CHECK(uart_get_buffered_data_len(UART_NUM_1, &data_len));
-    ESP_LOGI("DEBUG", "%d", data_len);
     uart_flush(UART_NUM_1);
     return ret;
 }
-
+/**
+ * @brief Convert data from UART to doubles
+ * 
+ * @param datagramBuffer the data from the UART
+ * @param key what OBIS referece
+ * @param datablock which datablock 
+ * @return double value
+ */
 // Parse value of single OBIS reference
 double ParseDataValue(char *datagramBuffer, char *key, int datablock)
 {
@@ -114,7 +138,14 @@ double ParseDataValue(char *datagramBuffer, char *key, int datablock)
     }
 }
 
-// Decode the datagram
+/**
+ * @brief decode datagram with obis references
+ * 
+ * @param datagramBuffer data from UART
+ * @param datagram The place to write the doubles to
+ * @return true no end or beginning found
+ * @return false decoded succesfully
+ */
 bool decode_datagram(char *datagramBuffer, fluviusData *datagram)
 {
     // Find the start of the datagram
