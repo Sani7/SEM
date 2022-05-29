@@ -30,17 +30,17 @@ menu "IoT Fluvius Meter Config"
     
     config ESP_SERVER_IP
         string "HTTP Server IP"
-            default "192.168.178.4"
+            default "192.168.178.90"
             help
                 The IP address of an HTTP server for the ESP to connect to.
     config ESP_SERVER_PORT
         string "HTTP Server PORT"
-            default "80"
+            default "8080"
             help
                 The Port that the HTTP server listened to.
     config ESP_SERVER_URI
         string "Web URI"
-        default "/get-data.php"
+        default "/post-data.php"
         help
             The specific file that the ESP will ask for.
     config ESP_SERVER_API_KEY
@@ -50,7 +50,7 @@ menu "IoT Fluvius Meter Config"
             The API key the client uses to identify itself.
         config ESP_PERIOD
             int "Period"
-            default 1000
+            default 60000
             help
                 Period in mseconds between reads
             

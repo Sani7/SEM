@@ -42,7 +42,7 @@ bool read_datagram(char *data)
         if (!startDetected && incomingByte[0] == '/')
         {
             startDetected = true;
-            printf("UART Detected start of a datagram\n");
+            ESP_LOGI("UART", "Detected start of a datagram\n");
         }
 
         if (startDetected)
@@ -52,7 +52,7 @@ bool read_datagram(char *data)
             if (data[readPointer - 1] == '\n' && data[readPointer - 6] == '!')
             {
                 data[readPointer - 1] = 0;
-                printf("UART Read in full datagram\n");
+                ESP_LOGI("UART", "Read in full datagram\n");
                 readPointer = 0;
                 startDetected = false;
                 fullDatagram = true;
@@ -62,7 +62,7 @@ bool read_datagram(char *data)
             // End of datagram not found
             if (readPointer > 2048)
             {
-                printf("UART Invalid Datagram > No end detected\n");
+                ESP_LOGI("UART", "Invalid Datagram > No end detected\n");
                 readPointer = 0;
                 startDetected = false;
                 ret = true;
@@ -85,7 +85,7 @@ double ParseDataValue(char *datagramBuffer, char *key, int datablock)
     char *start;
     char *end;
     char buffer[64] = {0};
-    
+
     // if OBIS reference found
     if (position)
     {

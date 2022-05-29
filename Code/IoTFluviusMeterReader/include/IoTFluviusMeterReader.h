@@ -27,7 +27,10 @@
 #include "sdmmc_cmd.h"
 
 #include "esp_http_client.h"
+#include "esp_tls.h"
+#include "esp_crt_bundle.h"
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 

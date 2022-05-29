@@ -1,13 +1,13 @@
 #include "IoTFluviusMeterReader.h"
 
+http_server_info info;
+
 void app_main(void)
 {
   ESP_ERROR_CHECK(nvs_flash_init());
 
   char wifi_ssid[sizeof(((wifi_config_t *)0)->sta.ssid)] = {0}; // Used to store the SSID for the wifi connection
   char wifi_pswd[sizeof(((wifi_config_t *)0)->sta.password)] = {0};
-
-  http_server_info info;
 
 #if ESP_USE_SD_CARD == 0
   ESP_LOGI(TAG, "Using config from menuconfig");
@@ -37,10 +37,10 @@ void app_main(void)
   uart_init();
 
   ESP_LOGI(TAG, "ESP_WIFI_MODE_AP");
-  //wifi_init_sta(wifi_ssid, wifi_pswd);
+  wifi_init_sta(wifi_ssid, wifi_pswd);
   ESP_LOGI(TAG, "Connected");
   
-  xTaskCreate(MeterTask, "MeterTask", 1024*4, &info, 5, NULL);
+  xTaskCreate(MeterTask, "MeterTask", 1024*8, NULL, 5, NULL);
 }
 
 void MeterTask(void* arg)
@@ -81,7 +81,8 @@ void MeterTask(void* arg)
     }
 
     // Publish data to MariaDB
-    //publish_received_data(data, *(http_server_info*)arg);
+    ESP_LOGI("DEBUG", "%s %d %s", info.ip, info.port, info.uri);
+    publish_received_data(data, info);
 
     // Ready for next request
     gpio_set_level(LED_ACT, false);
