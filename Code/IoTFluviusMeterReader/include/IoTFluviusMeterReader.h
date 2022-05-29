@@ -31,30 +31,7 @@
 #include <stdio.h>
 #include <string.h>
 
-typedef enum progState
-{
-    IDLE,
-    READING_DATAGRAM,
-    DATAGRAM_READY,
-    PROCESSING_DATA_GRAM,
-    DATAGRAM_DECODED
-} progState;
-
-typedef struct uartData
-{
-    char data[1024];
-    progState currentState;
-} uartData;
-
-#include "http.h"
-#include "sd.h"
-#include "uart.h"
-#include "wifi.h"
-
 /* The configuration that you can set via project configuration menu
-
-   If you'd rather not, just change the below entries to strings with
-   the config you want - ie #define EXAMPLE_WIFI_SSID "mywifissid"
 */
 #define ESP_USE_SD_CARD CONFIG_USE_CRED_SD_CARD
 #define ESP_WIFI_SSID CONFIG_ESP_WIFI_SSID
@@ -66,11 +43,11 @@ typedef struct uartData
 #define ESP_SERVER_URI CONFIG_ESP_SERVER_URI
 #define ESP_SERVER_API_KEY CONFIG_ESP_SERVER_API_KEY
 
-#define RX_BUF_SIZE 1024
-#define period 5000
+#define RX_BUF_SIZE 1400
+#define period CONFIG_ESP_PERIOD
 
 #define MAX_HTTP_RECV_BUFFER 512
-#define MAX_HTTP_OUTPUT_BUFFER 2048
+#define MAX_HTTP_OUTPUT_BUFFER 1024
 
 #define MOUNT_POINT "/sdcard"
 #define SPI_DMA_CHAN    1
@@ -99,5 +76,14 @@ typedef struct uartData
 #define TXD_PIN (GPIO_NUM_15)
 #define RXD_PIN (GPIO_NUM_14)
 
-void set_output(gpio_num_t pin, bool state);
-void configure_output(gpio_num_t pin);
+#include "http.h"
+#include "sd.h"
+#include "uart.h"
+#include "wifi.h"
+
+static const char *TAG = "IoT Module";
+/* FreeRTOS event group to signal when we are connected*/
+static EventGroupHandle_t s_wifi_event_group;
+
+void MeterTask(void* arg);
+void configure_pin(gpio_num_t pin, gpio_mode_t mode, gpio_pull_mode_t pull, gpio_int_type_t inter);

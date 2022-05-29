@@ -48,4 +48,10 @@ menu "IoT Fluvius Meter Config"
         default ""
         help
             The API key the client uses to identify itself.
+        config ESP_PERIOD
+            int "Period"
+            default 1000
+            help
+                Period in mseconds between reads
+            
 endmenu

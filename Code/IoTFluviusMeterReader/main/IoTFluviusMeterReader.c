@@ -1,25 +1,16 @@
 #include "IoTFluviusMeterReader.h"
 
-static const char *TAG = "IoT Module";
-
 void app_main(void)
 {
   ESP_ERROR_CHECK(nvs_flash_init());
-  ESP_ERROR_CHECK(esp_netif_init());
-  ESP_ERROR_CHECK(esp_event_loop_create_default());
 
   char wifi_ssid[sizeof(((wifi_config_t *)0)->sta.ssid)] = {0}; // Used to store the SSID for the wifi connection
   char wifi_pswd[sizeof(((wifi_config_t *)0)->sta.password)] = {0};
 
   http_server_info info;
 
-  uartData uart_data;
-
-  fluviusData data;
-
-  long currentMillis, startMillis;
-
-#if ESP_USE_SD_CARD
+#if ESP_USE_SD_CARD == 0
+  ESP_LOGI(TAG, "Using config from menuconfig");
   strncpy(wifi_ssid, ESP_WIFI_SSID, sizeof(wifi_ssid));
   strncpy(wifi_pswd, ESP_WIFI_PSWD, sizeof(wifi_pswd));
   strncpy(info.ip, ESP_SERVER_IP, sizeof(info.ip));
@@ -27,8 +18,9 @@ void app_main(void)
   strncpy(info.uri, ESP_SERVER_URI, sizeof(info.uri));
   strncpy(info.api_key, ESP_SERVER_API_KEY, sizeof(info.api_key));
 #else
-char sd_content[200];
-readFileContents("config.txt", sd_content, sizeof(sd_content));
+  ESP_LOGI(TAG, "Using config from SD card");
+  char sd_content[200];
+  readFileContents("config.txt", sd_content, sizeof(sd_content));
   readSetting(sd_content, sizeof(sd_content), "SSID", wifi_ssid, sizeof(wifi_ssid));
   readSetting(sd_content, sizeof(sd_content), "PSWD", wifi_pswd, sizeof(wifi_pswd));
   readSetting(sd_content, sizeof(sd_content), "IP", info.ip, sizeof(info.ip));
@@ -36,86 +28,76 @@ readFileContents("config.txt", sd_content, sizeof(sd_content));
   readSetting(sd_content, sizeof(sd_content), "APIKey", info.api_key, sizeof(info.api_key));
 #endif
 
-  //Pin mode setups for the status led and the meter enable line
-  configure_output(LED_ACT);
-  configure_output(METER_REQ);
+  // Pin mode setups for the status led and the meter enable line
+  configure_pin(LED_ACT, GPIO_MODE_OUTPUT, GPIO_FLOATING, GPIO_INTR_DISABLE);
+  configure_pin(METER_REQ, GPIO_MODE_OUTPUT, GPIO_FLOATING, GPIO_INTR_DISABLE);
+  gpio_set_level(LED_ACT, false);
+  gpio_set_level(METER_REQ, false);
+
+  uart_init();
 
   ESP_LOGI(TAG, "ESP_WIFI_MODE_AP");
-  wifi_init_sta(wifi_ssid, wifi_pswd);
+  //wifi_init_sta(wifi_ssid, wifi_pswd);
+  ESP_LOGI(TAG, "Connected");
+  
+  xTaskCreate(MeterTask, "MeterTask", 1024*4, &info, 5, NULL);
+}
 
-  startMillis = esp_timer_get_time() / 1000;
+void MeterTask(void* arg)
+{
+  long startMillis;
+  char uartData[RX_BUF_SIZE] = {0};
+
+  fluviusData data;
+
   while (true)
   {
-    currentMillis = esp_timer_get_time() / 1000;
+    startMillis = esp_timer_get_time();
+    memset(uartData, 0, RX_BUF_SIZE);
+    // Request data
+    ESP_ERROR_CHECK(gpio_set_level(LED_ACT, false));
+    ESP_LOGI(TAG, "Enabling meter");
+    ESP_ERROR_CHECK(gpio_set_level(METER_REQ, true));
 
-    if ((currentMillis - startMillis) >= period)
+    ESP_LOGI(TAG, "Reading Data");
+    // Read data
+    if (read_datagram(uartData))
     {
-      switch (uart_data.currentState)
-      {
-      case IDLE:
-         // Request data
-        set_output(LED_ACT, false);
-        ESP_LOGI(TAG, "Enabling meter");
-        set_output(METER_REQ, true);
-        uart_data.currentState = READING_DATAGRAM;
-        break;
+      ESP_LOGI(TAG, "Bad datagram read");
+      gpio_set_level(METER_REQ, false);
+      continue;
+    }
 
-      case READING_DATAGRAM:
-        // Read data
-        read_datagram(&uart_data);
-        break;
+    // Stop requesting data
+    gpio_set_level(METER_REQ, false);
+    gpio_set_level(LED_ACT, true);
+    ESP_LOGI(TAG, "We have a DATAGRAM ready for processing");
 
-      case DATAGRAM_READY:
-        // Stop requesting data
-        set_output(LED_ACT, true);
-        ESP_LOGI(TAG, "We have a DATAGRAM ready for processing");
-        set_output(METER_REQ, false);
-        uart_data.currentState = PROCESSING_DATA_GRAM;
-        break;
+    // Decode data
+    if (decode_datagram(uartData, &data))
+    {
+      ESP_LOGI(TAG, "Bad datagram decoded");
+      continue;
+    }
 
-      case PROCESSING_DATA_GRAM:
-        // Decode data
-        if (decode_datagram(uart_data.data, &data))
-        {
-          uart_data.currentState = DATAGRAM_DECODED;
-        }
-        else
-        {
-          // Reset to the IDLE state if datagram is invalid
-          uart_data.currentState = IDLE;
-        }
-        break;
+    // Publish data to MariaDB
+    //publish_received_data(data, *(http_server_info*)arg);
 
-      case DATAGRAM_DECODED:
-        // Publish data to MariaDB
-        publish_received_data(data, info);
+    // Ready for next request
+    gpio_set_level(LED_ACT, false);
 
-        // Ready for next request
-        uart_data.currentState = IDLE;
-        set_output(LED_ACT, false);
-
-        // reset timer
-        startMillis = currentMillis;
-        break;
-
-      default:
-        ESP_LOGI(TAG, "Something went wrong on %s:%d", __FILE__,  __LINE__);
-        break;
-      }
+    while (esp_timer_get_time() < (startMillis + period * 1000))
+    {
+      vTaskDelay(1);
     }
   }
 }
 
-void set_output(gpio_num_t pin, bool state)
+void configure_pin(gpio_num_t pin, gpio_mode_t mode, gpio_pull_mode_t pull, gpio_int_type_t inter)
 {
-  /* Set the GPIO level according to the state (LOW or HIGH)*/
-  gpio_set_level(pin, state);
-}
-
-void configure_output(gpio_num_t pin)
-{
-  ESP_LOGI(TAG, "Example configured to blink GPIO LED!");
+  ESP_LOGI(TAG, "GPIO[%d] configured as an %s", pin, mode < 2 ? "imput" : "output");
   gpio_reset_pin(pin);
-  /* Set the GPIO as a push/pull output */
-  gpio_set_direction(pin, GPIO_MODE_OUTPUT);
+  gpio_set_direction(pin, mode);
+  gpio_set_pull_mode(pin, pull);
+  gpio_set_intr_type(pin, inter);
 }
