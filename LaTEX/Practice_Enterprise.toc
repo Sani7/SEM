@@ -9,10 +9,24 @@
 \contentsline {subsubsection}{+5V Power supply}{8}{figure.caption.5}%
 \contentsline {subsubsection}{Data request}{8}{figure.caption.5}%
 \contentsline {subsubsection}{Data}{8}{figure.caption.5}%
-\contentsline {chapter}{\numberline {2}Project specifications}{10}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Components used}{10}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Project Specifications}{10}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Hardware Diagram}{11}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Block diagram}{12}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Block diagram}{13}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Gantt Chart}{14}{section.2.6}%
+\contentsline {subsubsection}{Communication Protocol}{9}{figure.caption.5}%
+\contentsline {subsubsection}{Data readout}{9}{figure.caption.5}%
+\contentsline {subsubsection}{End of transmission}{9}{figure.caption.6}%
+\contentsline {subsubsection}{Data objects}{9}{figure.caption.6}%
+\contentsline {section}{\numberline {1.2}TCP/IP and HTTP}{10}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}TCP/IP}{10}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}HTTP}{11}{subsection.1.2.2}%
+\contentsline {subsubsection}{Methods}{11}{subsection.1.2.2}%
+\contentsline {chapter}{\numberline {2}Project specifications}{12}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Components used}{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Proposed Project Specifications}{12}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Hardware Diagram}{13}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Block diagram}{14}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Block diagram}{15}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Gantt Chart}{16}{section.2.6}%
+\contentsline {chapter}{\numberline {3}The actual build}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}My Goals}{17}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Details}{17}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Faults}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Learning Curve}{19}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Code}{19}{section.3.5}%
