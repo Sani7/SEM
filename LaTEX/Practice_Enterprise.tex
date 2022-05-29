@@ -410,7 +410,7 @@ and \url{https://www.fluvius.be/sites/fluvius/files/2019-12/e-mucs_h_ed_1_3.pdf}
 \section{TCP/IP and HTTP}
 \subsection{TCP/IP}
 
-The OSI Model we just looked at is just a reference/logical model. It was designed to describe the functions of the communication system by dividing the communication procedure into smaller and simpler components. But when we talk about the TCP/IP model, it was designed and developed by Department of Defense (DoD) in 1960s and is based on standard protocols. It stands for Transmission Control Protocol/Internet Protocol. The TCP/IP model is a concise version of the OSI model. It contains four layers, unlike seven layers in the OSI model.
+The OSI Model is just a reference/logical model. It was designed to describe the functions of the communication system by dividing the communication procedure into smaller and simpler components. But when we talk about the TCP/IP model, it was designed and developed by Department of Defense (DoD) in 1960s and is based on standard protocols. It stands for Transmission Control Protocol/Internet Protocol. The TCP/IP model is a concise version of the OSI model. It contains four layers, unlike seven layers in the OSI model.
 
 \begin{enumerate}
 
@@ -511,9 +511,6 @@ This whole document is written in LaTEX with the exception of the blockdiagrams.
   \qquad
   \caption{What my PCB looks like}
 \end{figure}
-I gave up on my PCB after one month of troubleshooting , but I eventually figured out what the issue was. An overvoltage most likely destroyed both my ESP32 and my programmer.
-And I only began writing code 2 weeks before the deadline because I was too focussed on trying to find the hardware mistake.
-That's why I only finished the Sensor and Database side of the project. I ran out of time to write code and create documentation for my code.
 \begin{itemize}
 \item ESP32\\
 The esp32 is a 32 bit dual core LX6 RISC V Microcontroller from Xtensa. Build for the purpose of IoT applications. It has 30 GPIO pins (6 are reserved for the SPI Flash), onboard UART, SPI, I2C and PWM. It also has 2-4MBytes of onboard flash.
@@ -526,7 +523,12 @@ In the format: configName=configText\textbackslash n
 I wanted to use a WaveShare Epaper dislay (3.7 inch, 4 colours), but I hadn't enough time to do anything with it. It is accesible via SPI with 2 extra control signals (command input or data and busy output)
 \item Rotary Encoder\\
 I wanted to use a rotary encoder with a switch to control select what data to show. I wanted to create a seporate task to check te rotary switch and report back to the main display task.
+\item PCB \\
+I gave up on my PCB after one month of troubleshooting , but I eventually figured out what the issue was. An overvoltage most likely destroyed both my ESP32 and my programmer.
+And I only began writing code 2 weeks before the deadline because I was too focussed on trying to find the hardware mistake.
+That's why I only finished the Sensor and Database side of the project. I ran out of time to write code and create documentation for my code.
 \end{itemize}
+
 \vfill
 
 \section{Faults}
