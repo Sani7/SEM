@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.13)  29 MAY 2022 17:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.13)  29 MAY 2022 21:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1868,12 +1868,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 239--240
 
  []
 
-<pictures//ThomasMoreLogo.png, id=131, 145.9854pt x 56.8524pt>
+<pictures//ThomasMoreLogo.png, id=139, 145.9854pt x 56.8524pt>
 File: pictures//ThomasMoreLogo.png Graphic file (type png)
 <use pictures//ThomasMoreLogo.png>
 Package pdftex.def Info: pictures//ThomasMoreLogo.png  used on input line 241.
 (pdftex.def)             Requested size: 142.26378pt x 55.40265pt.
-<pictures//Logo.png, id=133, 136.25906pt x 158.84344pt>
+<pictures//Logo.png, id=141, 136.25906pt x 158.84344pt>
 File: pictures//Logo.png Graphic file (type png)
 <use pictures//Logo.png>
 Package pdftex.def Info: pictures//Logo.png  used on input line 256.
@@ -1914,7 +1914,7 @@ LaTeX Font Info:    Font shape `OT1/pxr/b/n' in size <12> not available
  [5
 
 ]
-<pictures//SmartMeter.jpg, id=185, 192.72pt x 144.54pt>
+<pictures//SmartMeter.jpg, id=196, 192.72pt x 144.54pt>
 File: pictures//SmartMeter.jpg Graphic file (type jpg)
 <use pictures//SmartMeter.jpg>
 Package pdftex.def Info: pictures//SmartMeter.jpg  used on input line 312.
@@ -1930,12 +1930,12 @@ LaTeX Font Info:    Font shape `OT1/pxr/b/n' in size <17.28> not available
 (Font)              Font shape `OT1/pxr/bx/n' tried instead on input line 322.
 LaTeX Font Info:    Font shape `OT1/pxr/b/n' in size <14.4> not available
 (Font)              Font shape `OT1/pxr/bx/n' tried instead on input line 324.
-<pictures//RJ12.png, id=192, 137.7647pt x 143.78719pt>
+<pictures//RJ12.png, id=202, 137.7647pt x 143.78719pt>
 File: pictures//RJ12.png Graphic file (type png)
 <use pictures//RJ12.png>
 Package pdftex.def Info: pictures//RJ12.png  used on input line 335.
 (pdftex.def)             Requested size: 85.35826pt x 89.09227pt.
-<pictures//MeterIntern.png, id=193, 693.34032pt x 509.65407pt>
+<pictures//MeterIntern.png, id=203, 693.34032pt x 509.65407pt>
 File: pictures//MeterIntern.png Graphic file (type png)
 <use pictures//MeterIntern.png>
 Package pdftex.def Info: pictures//MeterIntern.png  used on input line 356.
@@ -1967,7 +1967,7 @@ LaTeX Font Info:    Trying to load font information for TS1+pxr on input line 3
 (/usr/share/texlive/texmf-dist/tex/latex/pxfonts/ts1pxr.fd
 File: ts1pxr.fd 2000/12/14 v1.0
 )
-<pictures//CommunicationExample.png, id=206, 534.49687pt x 29.35968pt>
+<pictures//CommunicationExample.png, id=216, 534.49687pt x 29.35968pt>
 File: pictures//CommunicationExample.png Graphic file (type png)
 <use pictures//CommunicationExample.png>
 Package pdftex.def Info: pictures//CommunicationExample.png  used on input line
@@ -1993,7 +1993,7 @@ Chapter 2.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Hardware.pdf): PDF inclusion: found P
 DF version <1.6>, but at most version <1.5> allowed
-<Hardware.pdf, id=233, 845.04686pt x 597.50786pt>
+<Hardware.pdf, id=243, 845.04686pt x 597.50786pt>
 File: Hardware.pdf Graphic file (type pdf)
 <use Hardware.pdf>
 Package pdftex.def Info: Hardware.pdf  used on input line 483.
@@ -2014,7 +2014,7 @@ DF version <1.6>, but at most version <1.5> allowed
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Hardware.pdf): PDF inclusion: found P
 DF version <1.6>, but at most version <1.5> allowed
-<Hardware.pdf, id=236, page=1, 845.04686pt x 597.50786pt>
+<Hardware.pdf, id=246, page=1, 845.04686pt x 597.50786pt>
 File: Hardware.pdf Graphic file (type pdf)
 <use Hardware.pdf, page 1>
 Package pdftex.def Info: Hardware.pdf , page1 used on input line 483.
@@ -2041,7 +2041,7 @@ Package pdftex.def Info: Hardware.pdf , page1 used on input line 483.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./GIP-Blokschema-Programma.pdf): PDF in
 clusion: found PDF version <1.6>, but at most version <1.5> allowed
-<GIP-Blokschema-Programma.pdf, id=249, 597.50786pt x 845.04686pt>
+<GIP-Blokschema-Programma.pdf, id=259, 597.50786pt x 845.04686pt>
 File: GIP-Blokschema-Programma.pdf Graphic file (type pdf)
 <use GIP-Blokschema-Programma.pdf>
 Package pdftex.def Info: GIP-Blokschema-Programma.pdf  used on input line 485.
@@ -2062,7 +2062,7 @@ clusion: found PDF version <1.6>, but at most version <1.5> allowed
 
 pdfTeX warning: /usr/bin/pdflatex (file ./GIP-Blokschema-Programma.pdf): PDF in
 clusion: found PDF version <1.6>, but at most version <1.5> allowed
-<GIP-Blokschema-Programma.pdf, id=252, page=1, 597.50786pt x 845.04686pt>
+<GIP-Blokschema-Programma.pdf, id=262, page=1, 597.50786pt x 845.04686pt>
 File: GIP-Blokschema-Programma.pdf Graphic file (type pdf)
 <use GIP-Blokschema-Programma.pdf, page 1>
 Package pdftex.def Info: GIP-Blokschema-Programma.pdf , page1 used on input lin
@@ -2094,7 +2094,7 @@ e 485.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./GIP-Blokschema-Programma.pdf): PDF in
 clusion: found PDF version <1.6>, but at most version <1.5> allowed
-<GIP-Blokschema-Programma.pdf, id=264, page=2, 597.50786pt x 845.04686pt>
+<GIP-Blokschema-Programma.pdf, id=274, page=2, 597.50786pt x 845.04686pt>
 File: GIP-Blokschema-Programma.pdf Graphic file (type pdf)
 <use GIP-Blokschema-Programma.pdf, page 2>
 Package pdftex.def Info: GIP-Blokschema-Programma.pdf , page2 used on input lin
@@ -2114,7 +2114,7 @@ e 485.
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Gantt.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
-<Gantt.pdf, id=270, 845.0471pt x 597.50829pt>
+<Gantt.pdf, id=280, 845.0471pt x 597.50829pt>
 File: Gantt.pdf Graphic file (type pdf)
 <use Gantt.pdf>
 Package pdftex.def Info: Gantt.pdf  used on input line 487.
@@ -2135,7 +2135,7 @@ version <1.7>, but at most version <1.5> allowed
 
 pdfTeX warning: /usr/bin/pdflatex (file ./Gantt.pdf): PDF inclusion: found PDF 
 version <1.7>, but at most version <1.5> allowed
-<Gantt.pdf, id=273, page=1, 845.0471pt x 597.50829pt>
+<Gantt.pdf, id=283, page=1, 845.0471pt x 597.50829pt>
 File: Gantt.pdf Graphic file (type pdf)
 <use Gantt.pdf, page 1>
 Package pdftex.def Info: Gantt.pdf , page1 used on input line 487.
@@ -2160,43 +2160,68 @@ Package pdftex.def Info: Gantt.pdf , page1 used on input line 487.
 
  <./Gantt.pdf>]
 Chapter 3.
-<pictures//SEM.jpg, id=298, 379.4175pt x 314.3745pt>
-File: pictures//SEM.jpg Graphic file (type jpg)
-<use pictures//SEM.jpg>
-Package pdftex.def Info: pictures//SEM.jpg  used on input line 508.
-(pdftex.def)             Requested size: 284.52756pt x 235.7563pt.
-
-Underfull \hbox (badness 10000) in paragraph at lines 519--521
-
- []
-
 [17
 
 
-] [18 <./pictures//SEM.jpg>] 
+]
+<pictures//SEM.jpg, id=312, 379.4175pt x 314.3745pt>
+File: pictures//SEM.jpg Graphic file (type jpg)
+<use pictures//SEM.jpg>
+Package pdftex.def Info: pictures//SEM.jpg  used on input line 510.
+(pdftex.def)             Requested size: 170.71652pt x 141.45282pt.
+LaTeX Font Info:    Trying to load font information for OMS+pxr on input line 5
+24.
+ (/usr/share/texlive/texmf-dist/tex/latex/pxfonts/omspxr.fd
+File: omspxr.fd 2000/12/14 v1.0
+)
+LaTeX Font Info:    Font shape `OMS/pxr/m/n' in size <12> not available
+(Font)              Font shape `OMS/pxsy/m/n' tried instead on input line 524.
+
+Underfull \hbox (badness 10000) in paragraph at lines 534--536
+
+ []
+
+[18 <./pictures//SEM.jpg>] [19] [20]
+Chapter 4.
+
+Overfull \hbox (6.26443pt too wide) in paragraph at lines 575--579
+[]$\OT1/pxtt/m/n/12 https : / / docs . espressif . com / projects / esp-[]idf /
+ en / latest / esp32 / api-[]reference/$[]
+ []
+
+
+Overfull \hbox (11.56442pt too wide) in paragraph at lines 575--579
+[]$\OT1/pxtt/m/n/12 https : / / www . netbeheernederland . nl / _upload / Files
+ / Slimme _ meter _ 15 _ a727fce1f1 .
+ []
+
+[21
+
+] 
 AED: lastpage setting LastPage
-[19] (./Practice_Enterprise.aux)
+(./Practice_Enterprise.aux)
 Package rerunfilecheck Info: File `Practice_Enterprise.out' has not changed.
-(rerunfilecheck)             Checksum: E65CEF0A918D5083293EE9A5A2B0FCC8;2695.
+(rerunfilecheck)             Checksum: 64EBFB6775766C1E41FBC7A814BC608D;2894.
  ) 
 Here is how much of TeX's memory you used:
- 66159 strings out of 478862
- 1609815 string characters out of 5858944
- 2418919 words of memory out of 6000000
- 82623 multiletter control sequences out of 15000+600000
+ 66187 strings out of 478862
+ 1610237 string characters out of 5858944
+ 2418917 words of memory out of 6000000
+ 82644 multiletter control sequences out of 15000+600000
  427279 words of font info for 92 fonts, out of 8000000 for 9000
  1138 hyphenation exceptions out of 8191
  99i,18n,117p,1084b,962s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/pxfonts/rpcxr.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/pxfonts/rpxb.pfb></usr/share/texlive/texmf-dist/fonts/type
-1/public/pxfonts/rpxr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txf
-onts/txtt.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
-Output written on Practice_Enterprise.pdf (19 pages, 1140753 bytes).
+e/texmf-dist/fonts/type1/public/pxfonts/pxsy.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/pxfonts/rpcxr.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/pxfonts/rpxb.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/pxf
+onts/rpxr.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/txfonts/txtt.pf
+b></usr/share/texlive/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb>
+Output written on Practice_Enterprise.pdf (21 pages, 1145732 bytes).
 PDF statistics:
- 353 PDF objects out of 1000 (max. 8388607)
- 262 compressed objects within 3 object streams
- 54 named destinations out of 1000 (max. 500000)
- 433 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 380 PDF objects out of 1000 (max. 8388607)
+ 286 compressed objects within 3 object streams
+ 58 named destinations out of 1000 (max. 500000)
+ 449 words of extra memory for PDF output out of 10000 (max. 10000000)
 

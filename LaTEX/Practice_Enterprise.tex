@@ -502,16 +502,31 @@ I'm able to initialize, build, upload and monitor projects via Microsoft Visual 
 \item Better understand how to use LaTEX for creating documents\tabto{12cm}Reached\\
 This whole document is written in LaTEX with the exception of the blockdiagrams.
 \end{itemize}
+\vfill
+\eject
 \section{Details}
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=10cm]{SEM.jpg}
+  \includegraphics[width=6cm]{SEM.jpg}
   \qquad
   \caption{What my PCB looks like}
 \end{figure}
-I actually gave up on my PCB, because I didn't want to troubleshoot what was going on, but I eventually figured it out. An overvoltage probably destroyed both my ESP32 and my programmer.
-And only began writing code 2 weeks before the deadline, because I was ill for a month.
-That's why I only finished the Sensor and Database side of the project. I just ran out of time, to write code and create documentation for my code.
+I gave up on my PCB after one month of troubleshooting , but I eventually figured out what the issue was. An overvoltage most likely destroyed both my ESP32 and my programmer.
+And I only began writing code 2 weeks before the deadline because I was too focussed on trying to find the hardware mistake.
+That's why I only finished the Sensor and Database side of the project. I ran out of time to write code and create documentation for my code.
+\begin{itemize}
+\item ESP32\\
+The esp32 is a 32 bit dual core LX6 RISC V Microcontroller from Xtensa. Build for the purpose of IoT applications. It has 30 GPIO pins (6 are reserved for the SPI Flash), onboard UART, SPI, I2C and PWM. It also has 2-4MBytes of onboard flash.
+\item Conversion Logic\\
+The logic is pretty easy, the data pin is of type Open Drain, so we can just pull it up to 3V3 and we have an inverted UART signal that can be inverted via software. (uart\_set\_line\_inverse) For the enable line we need a tri-state buffer and a level shifter. (ESP (3V3) \textrightarrow Logic Shift (5V) \textrightarrow tri-stat buff (5V tri) \textrightarrow enable pin)
+\item SD card\\
+The SD-Card is connected to the VSPI pins, it has a FAT filesystem and contains one file config.txt which contains the necesary info to connect to wifi, the server ip, port, uri and API key. The code for the SD card is untested because I wasn't able to connect one to the ESP32.
+In the format: configName=configText\textbackslash n
+\item Display\\
+I wanted to use a WaveShare Epaper dislay (3.7 inch, 4 colours), but I hadn't enough time to do anything with it. It is accesible via SPI with 2 extra control signals (command input or data and busy output)
+\item Rotary Encoder\\
+I wanted to use a rotary encoder with a switch to control select what data to show. I wanted to create a seporate task to check te rotary switch and report back to the main display task.
+\end{itemize}
 \vfill
 
 \section{Faults}
@@ -537,10 +552,12 @@ That's why I only finished the Sensor and Database side of the project. I just r
 		\item I forgot to include TLS libs, they where necessary for the http functions to work proparly, even if I didn't use HTTPS
 	\end{itemize}
 \end{enumerate}
+\vfill
+\eject
 \section{Learning Curve}
 There is a big difference between using a microcontroller like the XC888, ATMEGA32U4 (What I previously used) and the ESP32
 \begin{itemize}
-\item CPU architecture: intel 8051 assembly <=> ATMEL RISC Core <=>  Xtensa LX6 RISC V dual core processor
+\item CPU architecture: intel 8051 assembly \verb|<=>| ATMEL RISC Core \verb|<=>|  Xtensa LX6 RISC V dual core processor
 \item IO: Almost every IO function is available on evey pin ex every pin can be a UART pin or PWM etc
 \item Task based instead of one flow with interrupts
 \item The documentation is complicated, you have to know where to look for something
@@ -550,7 +567,15 @@ There is a big difference between using a microcontroller like the XC888, ATMEGA
 \item ... (more them I'll ever need)
 \end{itemize}
 \section{Code}
-see \url{http://www.github.com/Sani7/SEM/tree/main/Code} \ I'm not going to list my code in this document, there is just to much of it and it becomes a mess. And you have a nice blockdiagram on the of it.
+For the code go to \url{http://www.github.com/Sani7/SEM/tree/main/Code} \ I'm not going to list my code in this document, there is just to much of it and it will become a mess. And you have a nice blockdiagram on the of it.
+\section{Conclusion}
+I'm happy whith what I'v learned so far. It could have been better, but everybody says that when looking back to a project. Although I was only able to finish 2 of the 3 parts, I still think I did a good job in the time I had.
 
-
+\chapter{References}
+\url{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/} was my best friend and guide.\\
+And thanks to the people at netbeheernederland and Fluvius who made the specification available:\\
+\url{https://www.netbeheernederland.nl/_upload/Files/Slimme_meter_15_a727fce1f1.pdf}\\
+and\\ \url{https://www.fluvius.be/sites/fluvius/files/2019-12/e-mucs_h_ed_1_3.pdf}
+\vfill
+\eject
 \end{document}

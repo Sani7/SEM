@@ -26,7 +26,9 @@
 \contentsline {section}{\numberline {2.6}Gantt Chart}{16}{section.2.6}%
 \contentsline {chapter}{\numberline {3}The actual build}{17}{chapter.3}%
 \contentsline {section}{\numberline {3.1}My Goals}{17}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Details}{17}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Faults}{18}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Learning Curve}{19}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Code}{19}{section.3.5}%
+\contentsline {section}{\numberline {3.2}Details}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Faults}{19}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Learning Curve}{20}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Code}{20}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Conclusion}{20}{section.3.6}%
+\contentsline {chapter}{\numberline {4}References}{21}{chapter.4}%
