@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP FODM8071
+D Optocoupler logic gate 3.3V/5V
+K
+F https://www.onsemi.com/pub/Collateral/FODM8071-D.pdf
+$ENDCMP
+#
+#End Doc Library
