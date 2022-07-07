@@ -1,0 +1,34 @@
+( ) Project
+	
+	( ) Hardware
+		(X) Redesign Schematic
+		( ) Redesign PCB
+		( ) Build
+		( ) Assembling
+		( ) Test
+	( ) Software
+		(X) PC
+			(X) Podman pod
+			(X) configure mysql
+			(X) configure grafana
+			(X) Prettify data display
+			
+		( ) Module
+			( ) Test
+				( ) SD card code
+				( ) Meter message
+	
+( ) Presentation
+	( ) More slides for explaining code and algorithms
+	( ) Hardware explanation with slides
+	( ) No list of things that went wrong
+	( ) Better explanation of linux stuff (LAMP etc)
+	( ) Proof read
+	( ) Exercise
+	
+( ) Document
+	( ) Evaluating the document and see what misses
+	( ) Extra chapter about lamp stack and configuration
+	( ) Proof read
+
+( ) Appointment to test on campus
