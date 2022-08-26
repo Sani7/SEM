@@ -33,3 +33,5 @@
 
 # Don't include the build folders
 build
+
+DS/fluvius_smartmeter/
