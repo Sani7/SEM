@@ -284,7 +284,7 @@ I'm Sander Speetjens, a first year student Electronics Embedded Software at Thom
 This bundle will be a summary of all of the information that I gathered over the course of half a semester about my project Smart Energy Meter (SEM) or making my digital electricity meter more smart with a separate observation station. I had chosen this subject, because recently our energy supplier installed one of their new energy meters at home and I wanted to know our energy consumption. The system had to be reliable in the long term, but also consume little energy. This was quite challenging in terms of software, because there was a design constrained that we couldn't use any pre-written libraries or platforms like Arduino. With this practice enterprise, I want to demonstrate that I can apply my knowledge gained in secondary school and university to both the Electronic and Mathematical parts. Moreover, this was the perfect moment to focus on my favourite subjects, namely the combination of hardware, software and mathematics.
 \ \\ \ \\
 Because I could not have achieved all this without help from others, I would like to thank a few people. First and foremost, I would like to thank my teachers for assisting me with the technical and mathematical aspects of my practice entry.  I would also like to thank my friends who have worked together with me to make this possible.
-Finally, I would also like to thank my parents, who have always supported me and helped me review my assignments.  I would also like to explicitly thank my father, Tim Speetjens, for helping me develop a MySQL interface written in PHP.
+Finally, I would also like to thank my parents, who have always supported me and helped me review my assignments.
 \vfill
 \eject
 
@@ -318,16 +318,28 @@ Finally, I would also like to thank my parents, who have always supported me and
 
 \chapter{Theory}
 
-
 \section{The Smart Meter}
 
 \subsection{Introduction}
 
 The digital meters for electricity and gas were introduced in Flanders on 1 July 2019. Since then, they have replaced the old, mechanical meters that are no longer in circulation. Fluvius automatically installs them at new housing developments or renovations where the electricity connection is renewed. In addition, Fluvius launched a major geographical roll-out this spring to install such meters at every household and small business in Flanders. This will be organised by region, town or municipality. The roll-out aims at a complete conversion by 2029, with the main acceleration in the next three years. By the end of 2024, 80\% of homes should have digital meters.
 
+\subsection{What is a Smart Meter}
+A smart meter is an electronic device that records information such as consumption of electric energy, voltage levels, current, and power factor. Smart meters communicate the information to the consumer for greater clarity of consumption behavior, and electricity suppliers for system monitoring and customer billing. Smart meters typically record energy near real-time, and report regularly, short intervals throughout the day. Smart meters enable two-way communication between the meter and the central system. Such an advanced metering infrastructure (AMI) differs from automatic meter reading (AMR) in that it enables two-way communication between the meter and the supplier. Communications from the meter to the network may be wireless, or via fixed wired connections such as power line carrier (PLC). Wireless communication options in common use include cellular communications, Wi-Fi (readily available), wireless ad hoc networks over Wi-Fi, wireless mesh networks, low power long-range wireless (LoRa), Wize (high radio penetration rate, open, using the frequency 169 MHz) ZigBee (low power, low data rate wireless), and Wi-SUN (Smart Utility Networks).
+\url{https://en.wikipedia.org/wiki/Smart_meter}
+
+\eject
+
+\subsection{Objective}
+How to read the required data from the smart meter with my microcontroller. Wich protocol does it use and how do I translate the data to useable variables.
+
+\subsection{Expectation}
+I think that the meter will use a simple protocol like RS232 because it only uses 1 data signal and one ground for one-way comunication. I also expect that the meter will send out the data in clear text because it's easier to decipher then a custom data format.
+
 \subsection{User-Ports}
 These digital meters contain 2 User ports, which you are able to read you're consumption/production statistics from. The P1 port follows the DSMR 5 standard of the Dutch Smart Meter extended with the e-Mucs specification.
 The S1 port provides a limited possibility of data and is going to be removed from the newer meters and is not going to be used in this project.
+
 \subsection{Physical connection}
 
 \begin{figure}[!ht]
@@ -372,7 +384,6 @@ Here we run into a problem, due to the use of optocouplers, the "Data" (pin 5) l
 A "Data" line LOW has a voltage of 0,2 V (0 - 1V), HIGH has a voltage provided by a pull-up resistor to the VCC of the microcontroller with a maximum current of 30 mA.\ \\ \ \\
 
 \subsubsection{Communication Protocol}
-Transfert speed and character formatting
 The interface must use a fixed transfer speed of 115200 baud. \ \\
 
 The Fluvius Smart Meter sends its data to the connected IoT device every single second and the transmission of the entire P1 telegram is completed within 1s. \ \\
@@ -401,16 +412,32 @@ The data transmission is complete after the data message has been transmitted. A
 
 \subsubsection{Data objects}
 
-Go to the DSMR 5 standard and e-Mucs specification.
+Go to the DSMR 5 standard and e-Mucs specification for more information.
 \url{https://www.netbeheernederland.nl/_upload/Files/Slimme_meter_15_a727fce1f1.pdf}\\
 and \url{https://www.fluvius.be/sites/fluvius/files/2019-12/e-mucs_h_ed_1_3.pdf}
 \vfill
 \eject
 
-\section{TCP/IP and HTTP}
-\subsection{TCP/IP}
+\section{Ethernet}
+\subsection{Introduction}
+Now we have our data,but we don't have a place to store it. The microcontroller doesn't have enough memory to store all of our data, so we have transfer this data to another system.
+Here comes Ethernet/ WIFI to the rescue. Because it is used on every modern computer system it becomes super easy to implement, also our microcontroller is specially made to be an Internet of Things (IoT) device. Because it has a lot of features out of the box like WIFI, Ethernet and Bluetooth with it's prepackaged libraries or also known as stacks to make it super straight forward to use.
 
-The OSI Model is just a reference/logical model. It was designed to describe the functions of the communication system by dividing the communication procedure into smaller and simpler components. But when we talk about the TCP/IP model, it was designed and developed by Department of Defense (DoD) in 1960s and is based on standard protocols. It stands for Transmission Control Protocol/Internet Protocol. The TCP/IP model is a concise version of the OSI model. It contains four layers, unlike seven layers in the OSI model.
+\subsection{What is ethernet}
+This is a computer networking standard for Local Area and Wide Area Networks that is commonly used today.\\
+See the link for more info:
+\url{https://en.wikipedia.org/wiki/Ethernet}
+
+\subsection{Objective}
+How can we connect our microcontroller to another device over ethernet and with wich protocol are we going to use, that is both easy to use and widly used. In what format are we going to send our data over the air to that device.
+
+\subsection{Expectations}
+My background in computers says me that TCP/IP and HTTP are the most commonly used protocols over ethernet.
+
+\subsection{TCP/IP and HTTP}
+\subsubsection{What is TCP/IP}
+
+The TCP/IP model was designed and developed by the US Department of Defense (DoD) in 1960s and is based on standard protocols. It stands for Transmission Control Protocol/Internet Protocol. The TCP/IP model is a concise version of the OSI model. It contains four layers, unlike seven layers in the OSI model.
 
 \begin{enumerate}
 
@@ -443,9 +470,9 @@ The OSI Model is just a reference/logical model. It was designed to describe the
 \end{enumerate}
 for more info go to\\
 \url{https://www.geeksforgeeks.org/tcp-ip-model/}
-\subsection{HTTP}
+\subsubsection{HTTP}
 Hypertext Transfer Protocol (HTTP) is an application-layer protocol for transmitting hypermedia documents, such as HTML. It was designed for communication between web browsers and web servers, but it can also be used for other purposes. HTTP follows a classical client-server model, with a client opening a connection to make a request, then waiting until it receives a response. HTTP is a stateless protocol, meaning that the server does not keep any data (state) between two requests.
-\subsubsection{Methods}
+\paragraph{Methods}
 HTTP defines a set of request methods to indicate the desired action to be performed for a given resource. Although they can also be nouns, these request methods are sometimes referred to as HTTP verbs. Each of them implements a different semantic, but some common features are shared by a group of them: e.g. a request method can be safe, idempotent, or cacheable. These are the most used once:
 
 \begin{itemize}
@@ -456,8 +483,36 @@ HTTP defines a set of request methods to indicate the desired action to be perfo
 \end{itemize}
 for more info over http go to\\
 \url{https://developer.mozilla.org/en-US/docs/Web/HTTP}
+
+\subsection{Implementation}
+We will use the HTTP and TCP/IP stack for handeling data. And we will use the HTTP Post method to send the data over the stack.
+
 \vfill
 \eject
+
+\section{Containers, Webservers, Databases and Graphing}
+\subsection{Introduction}
+At this point we have the data send over the network and we need a way to receive it and store it in a safe place. Therefor we need to design the receiving and of the system on a PC, this handles the data storage side of the whole project.
+
+\subsection{Objective}
+\begin{itemize}
+\item We have to handle the incomming HTTP Post request and put it in a database.
+\item We have to choose which webserver we are going to use with which language.
+\item We have to choose the database software.
+\item We have to choose the graphing software.
+\item We have to make it work a lot of PC's therefor it will have to be containerized via Docker.
+\end{itemize}
+
+\subsection{Software selection}
+I'm going to use Free Open Source Software (FOSS) for this project.
+For the database I will use MariaDB, for the webserver I'm using apache2 and I'm using PHP for server side scripting. For graphing I will use Grafana.
+
+And for the containers I'm using Podman. This is a free and opensource alternative to Docker, developed by Red Hat.
+
+\subsection{Realization}
+For the realization I created a Pod, this is a way to combine multiple containers and let them talk to each other. We have to connect the ports that the pod uses to our system and give them permanent storage on our disk in the form of shared volumes.
+
+Then we have to set up the database, create users with specific permissions and create the php script.
 
 \chapter{Project specifications}
 \section{Components used}
@@ -569,7 +624,7 @@ There is a big difference between using a microcontroller like the XC888, ATMEGA
 \item ... (more them I'll ever need)
 \end{itemize}
 \section{Code}
-For the code go to \url{http://www.github.com/Sani7/SEM/tree/main/Code} \ I'm not going to list my code in this document, there is just to much of it and it will become a mess. And you have a nice blockdiagram on the of it.
+For the code go to \url{http://www.github.com/Sani7/SEM/tree/main/Code} \ I'm not going to list my code in this document, there is just to much of it and it will become a mess. And you have a nice blockdiagram of it.
 \section{Conclusion}
 I'm happy whith what I'v learned so far. It could have been better, but everybody says that when looking back to a project. Although I was only able to finish 2 of the 3 parts, I still think I did a good job in the time I had.
 
