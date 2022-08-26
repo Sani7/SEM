@@ -75,6 +75,9 @@ esp_err_t _http_event_handler(esp_http_client_event_t *evt)
             }
             output_len = 0;
             break;
+    case HTTP_EVENT_REDIRECT:
+            ESP_LOGD(TAG, "HTTP_EVENT_REDIRECT");
+            break;
     }
     return ESP_OK;
 }
@@ -108,15 +111,16 @@ void HTTP_Post(http_server_info info, char* data)
         
     };
     esp_http_client_handle_t client = esp_http_client_init(&config);
-
+    
     // POST
     esp_http_client_set_method(client, HTTP_METHOD_POST);
     esp_http_client_set_header(client, "Content-Type", "application/x-www-form-urlencoded");
     esp_http_client_set_post_field(client, data, strlen(data));
     esp_err_t err = esp_http_client_perform(client);
+    
     if (err == ESP_OK)
     {
-        ESP_LOGI(TAG, "HTTP POST Status = %d, content_length = %d",
+        ESP_LOGI(TAG, "HTTP POST Status = %d, content_length = %lld",
                  esp_http_client_get_status_code(client),
                  esp_http_client_get_content_length(client));
     }
