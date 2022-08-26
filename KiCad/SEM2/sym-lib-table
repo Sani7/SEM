@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "NodeMCU")(type "KiCad")(uri "${KIPRJMOD}/NodeMCU.kicad_sym")(options "")(descr ""))
+  (lib (name "SD")(type "Legacy")(uri "/home/sanderspeetjens/Documents/ThomasMore/Phase1/Semester2/PracticeEnterprise/SEM/KiCad/lib/500901-0801/500901-0801.lib")(options "")(descr ""))
+)
