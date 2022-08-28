@@ -4,10 +4,10 @@
  * @brief initialize uart1
  * 
  */
-void uart_init(void)
+void uart_init(gpio_num_t tx_pin, gpio_num_t rx_pin, uint32_t baud, bool inv)
 {
     const uart_config_t uart_config = {
-        .baud_rate = 115200,
+        .baud_rate = baud,
         .data_bits = UART_DATA_8_BITS,
         .parity = UART_PARITY_DISABLE,
         .stop_bits = UART_STOP_BITS_1,
@@ -18,8 +18,12 @@ void uart_init(void)
     // invert rx and tx
     uart_driver_install(UART_NUM_1, RX_BUF_SIZE, 0, 0, NULL, 0);
     uart_param_config(UART_NUM_1, &uart_config);
-    uart_set_line_inverse(UART_NUM_1, UART_SIGNAL_RXD_INV);
-    uart_set_pin(UART_NUM_1, TXD_PIN, RXD_PIN, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
+    if (inv)
+    {
+        uart_set_line_inverse(UART_NUM_1, UART_SIGNAL_RXD_INV);
+        ESP_LOGI("UART", "Set line inverse to true");
+    }
+    uart_set_pin(UART_NUM_1, tx_pin, rx_pin, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 }
 
 /**
@@ -67,7 +71,7 @@ bool read_datagram(char *data, int len)
         {
             data[readPointer++] = incomingByte[0];
             // Look for the end of the datagram
-            if (data[readPointer - 1] == '\n' && data[readPointer - 6] == '!')
+            if (data[readPointer - 1] == '\r' && data[readPointer - 6] == '!')
             {
                 data[readPointer - 1] = 0;
                 ESP_LOGI("UART", "Read in full datagram\n");
@@ -212,7 +216,7 @@ bool decode_datagram(char *datagramBuffer, fluviusData *datagram)
     // 0-1:24.2.3 = OBIS reference gas delivered to client with temperature correction , 0-n where the n is the device number, possibly you need to change this number for your configuration
     datagram->GAS_METER_M3 = ParseDataValue(datagramBuffer, "0-1:24.2.3", 2);
     ESP_LOGI(TAG, "GM = %f", datagram->GAS_METER_M3);
-
+    
     // 0-2:24.2.3 = OBIS reference water delivered to client, 0-n where the n is the device number, possibly you need to change this number for your configuration
     datagram->WATER_METER_M3 = ParseDataValue(datagramBuffer, "0-2:24.2.3", 2);
     ESP_LOGI(TAG, "WM = %f", datagram->WATER_METER_M3);

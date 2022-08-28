@@ -34,7 +34,7 @@ void app_main(void)
   gpio_set_level(LED_ACT, false);
   gpio_set_level(METER_REQ, false);
 
-  uart_init();
+  uart_init(TXD_PIN, RXD_PIN, 115200, true);
 
   ESP_LOGI(TAG, "ESP_WIFI_MODE_AP");
   wifi_init_sta(wifi_ssid, wifi_pswd);
@@ -69,11 +69,11 @@ void MeterTask(void* arg)
     if (read_datagram(uartData, sizeof(uartData)))
     {
       ESP_LOGI(TAG, "Bad datagram read");
-      gpio_set_level(METER_REQ, false);
       continue;
     }
 
     // Stop requesting data
+    ESP_LOGI(TAG, "Disabling Meter");
     gpio_set_level(METER_REQ, false);
     gpio_set_level(LED_ACT, true);
     ESP_LOGI(TAG, "We have a DATAGRAM ready for processing");
