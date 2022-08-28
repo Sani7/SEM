@@ -1,48 +1,48 @@
 \babel@toc {english}{}
 \babel@toc {english}{}
-\contentsline {chapter}{\numberline {1}Theory}{8}{chapter.1}%
-\contentsline {section}{\numberline {1.1}The Smart Meter}{8}{section.1.1}%
-\contentsline {subsection}{\numberline {1.1.1}Introduction}{8}{subsection.1.1.1}%
-\contentsline {subsection}{\numberline {1.1.2}What is a Smart Meter}{8}{subsection.1.1.2}%
-\contentsline {subsection}{\numberline {1.1.3}Objective}{9}{subsection.1.1.3}%
-\contentsline {subsection}{\numberline {1.1.4}Expectation}{9}{subsection.1.1.4}%
-\contentsline {subsection}{\numberline {1.1.5}User-Ports}{9}{subsection.1.1.5}%
-\contentsline {subsection}{\numberline {1.1.6}Physical connection}{9}{subsection.1.1.6}%
-\contentsline {subsection}{\numberline {1.1.7}Internals of the meter}{10}{subsection.1.1.7}%
-\contentsline {subsubsection}{+5V Power supply}{10}{figure.caption.5}%
-\contentsline {subsubsection}{Data request}{10}{figure.caption.5}%
-\contentsline {subsubsection}{Data}{10}{figure.caption.5}%
-\contentsline {subsubsection}{Communication Protocol}{11}{figure.caption.5}%
-\contentsline {subsubsection}{Data readout}{11}{figure.caption.5}%
-\contentsline {subsubsection}{End of transmission}{11}{figure.caption.6}%
-\contentsline {subsubsection}{Data objects}{11}{figure.caption.6}%
-\contentsline {section}{\numberline {1.2}Ethernet}{12}{section.1.2}%
-\contentsline {subsection}{\numberline {1.2.1}Introduction}{12}{subsection.1.2.1}%
-\contentsline {subsection}{\numberline {1.2.2}What is ethernet}{12}{subsection.1.2.2}%
-\contentsline {subsection}{\numberline {1.2.3}Objective}{12}{subsection.1.2.3}%
-\contentsline {subsection}{\numberline {1.2.4}Expectations}{12}{subsection.1.2.4}%
-\contentsline {subsection}{\numberline {1.2.5}TCP/IP and HTTP}{12}{subsection.1.2.5}%
-\contentsline {subsubsection}{What is TCP/IP}{12}{subsection.1.2.5}%
-\contentsline {subsubsection}{HTTP}{13}{Item.3}%
-\contentsline {paragraph}{Methods}{14}{Item.3}%
-\contentsline {subsection}{\numberline {1.2.6}Implementation}{14}{subsection.1.2.6}%
-\contentsline {section}{\numberline {1.3}Containers, Webservers, Databases and Graphing}{15}{section.1.3}%
-\contentsline {subsection}{\numberline {1.3.1}Introduction}{15}{subsection.1.3.1}%
-\contentsline {subsection}{\numberline {1.3.2}Objective}{15}{subsection.1.3.2}%
-\contentsline {subsection}{\numberline {1.3.3}Software selection}{15}{subsection.1.3.3}%
-\contentsline {subsection}{\numberline {1.3.4}Realization}{15}{subsection.1.3.4}%
-\contentsline {chapter}{\numberline {2}Project specifications}{16}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Components used}{16}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Proposed Project Specifications}{16}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Hardware Diagram}{17}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Block diagram}{18}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Block diagram}{19}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Gantt Chart}{20}{section.2.6}%
-\contentsline {chapter}{\numberline {3}The actual build}{21}{chapter.3}%
-\contentsline {section}{\numberline {3.1}My Goals}{21}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Details}{22}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Faults}{23}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Learning Curve}{24}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Code}{24}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Conclusion}{24}{section.3.6}%
-\contentsline {chapter}{\numberline {4}References}{25}{chapter.4}%
+\contentsline {chapter}{\numberline {1}Theory}{7}{chapter.1}%
+\contentsline {section}{\numberline {1.1}The Smart Meter}{7}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Introduction}{7}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}What is a Smart Meter}{7}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Objective}{8}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Expectation}{8}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}User-Ports}{8}{subsection.1.1.5}%
+\contentsline {subsection}{\numberline {1.1.6}Physical connection}{8}{subsection.1.1.6}%
+\contentsline {subsection}{\numberline {1.1.7}Internals of the meter}{9}{subsection.1.1.7}%
+\contentsline {subsubsection}{+5V Power supply}{9}{figure.caption.5}%
+\contentsline {subsubsection}{Data request}{9}{figure.caption.5}%
+\contentsline {subsubsection}{Data}{9}{figure.caption.5}%
+\contentsline {subsubsection}{Communication Protocol}{10}{figure.caption.5}%
+\contentsline {subsubsection}{Data readout}{10}{figure.caption.5}%
+\contentsline {subsubsection}{End of transmission}{10}{figure.caption.6}%
+\contentsline {subsubsection}{Data objects}{10}{figure.caption.6}%
+\contentsline {section}{\numberline {1.2}Ethernet}{11}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Introduction}{11}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}What is ethernet}{11}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Objective}{11}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}Expectations}{11}{subsection.1.2.4}%
+\contentsline {subsection}{\numberline {1.2.5}TCP/IP and HTTP}{11}{subsection.1.2.5}%
+\contentsline {subsubsection}{What is TCP/IP}{11}{subsection.1.2.5}%
+\contentsline {subsubsection}{HTTP}{12}{Item.3}%
+\contentsline {paragraph}{Methods}{13}{Item.3}%
+\contentsline {subsection}{\numberline {1.2.6}Implementation}{13}{subsection.1.2.6}%
+\contentsline {section}{\numberline {1.3}Containers, Webservers, Databases and Graphing}{14}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Introduction}{14}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Objective}{14}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Software selection}{14}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Realization}{14}{subsection.1.3.4}%
+\contentsline {chapter}{\numberline {2}Project specifications}{15}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Components used}{15}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Proposed Project Specifications}{15}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Hardware Diagram}{16}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Block diagram}{17}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Block diagram}{18}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Gantt Chart}{19}{section.2.6}%
+\contentsline {chapter}{\numberline {3}The actual build}{20}{chapter.3}%
+\contentsline {section}{\numberline {3.1}My Goals}{20}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Details}{21}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Schematic}{22}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Learning Curve}{23}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Code}{23}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Conclusion}{23}{section.3.6}%
+\contentsline {chapter}{\numberline {4}References}{24}{chapter.4}%

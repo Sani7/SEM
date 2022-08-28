@@ -297,7 +297,7 @@ Finally, I would also like to thank my parents, who have always supported me and
 \setcounter{section}{0}
 \setcounter{subsection}{0}
 
-%\parskip=-0.41mm
+\parskip=-0.41mm
 \tableofcontents
 \thispagestyle{empty}
 
@@ -512,25 +512,24 @@ And for the containers I'm using Podman. This is a free and opensource alternati
 \subsection{Realization}
 For the realization I created a Pod, this is a way to combine multiple containers and let them talk to each other. We have to connect the ports that the pod uses to our system and give them permanent storage on our disk in the form of shared volumes.
 
-Then we have to set up the database, create users with specific permissions and create the php script.
+Then we have to set up the database, tables in the database, create users with specific permissions, create the php script and make a front end on Grafana.
 
 \chapter{Project specifications}
 \section{Components used}
 \begin{itemize}
   \item ESP32-WROOM\tabto{11cm}(€5)
   \item Raspberry Pi/ PC\tabto{11cm}(Free)
-  \item Waveshare e-paper display 3.7 inch 480x280px\tabto{11cm}(€42,13)
   \item extra components\tabto{11cm}(€20)
 
 \end{itemize}
 
 \section{Proposed Project Specifications}
-The project is composed out of 3 parts: The sensor, the database and an observation unit. \ \\
+The project is composed out of 2 parts: The sensor, the database with a web page that contains the graphs. \ \\
 The sensor side of the project contains all of the hardware that converts the data from the digital energy meter and sends that data to the database over WIFI once every couple of minutes (1-5 min).
 \ \\
 The database stores all of the records in a table. The data is received and send via a web-interface written in PHP and can be received via http requests. There will also be a dashboard that can be accessed via a web browser. But this is not important for this project.
 \ \\
-The display is the most important part of this project because it is the only visible part and has to be eye catching. It contains a graphical e-paper display to display the graph, a rotary encoder to select the data format (day, week, month or year) and you are able to ask for a specific format as example date format "week, -2" that will be two weeks prior to now.
+The Grafana web interface is a way to interface to all kinds of datasources to combine them in one interface.
 \ \\
 All of the parts are powered by a 5V wall adapter.
 
@@ -549,9 +548,8 @@ All of the parts are powered by a 5V wall adapter.
 I'm able to read a mock message from a meter, decode it and send it to a database via an HTTP post request. The only part that didn't work was the PCB.
 \item Database\tabto{12cm}Reached\\
 I'm able to receive post and get requests and give or receive the required data back.
-\item Display\tabto{12cm}Partly Reached\\
-(only receiving and processing data) \\
-Due to a lack of time, I only implemented the HTTP Get, data processing steps and high-level graphing functions.
+\item Display data via grafana\tabto{12cm}Reached\\
+I'm able to show data in graphs on a web interface.
 \item Learn about the ESP32 and it's IDE\tabto{12cm}Reached\\
 I'm able to initialize, build, upload and monitor projects via Microsoft Visual Studio Code. And I'm able to understand the documentation from Espressif.
 \item Better understand how to use LaTEX for creating documents\tabto{12cm}Reached\\
@@ -570,22 +568,26 @@ This whole document is written in LaTEX with the exception of the blockdiagrams.
 \item ESP32\\
 The esp32 is a 32 bit dual core LX6 RISC V Microcontroller from Xtensa. Build for the purpose of IoT applications. It has 30 GPIO pins (6 are reserved for the SPI Flash), onboard UART, SPI, I2C and PWM. It also has 2-4MBytes of onboard flash.
 \item Conversion Logic\\
-The logic is pretty easy, the data pin is of type Open Drain, so we can just pull it up to 3V3 and we have an inverted UART signal that can be inverted via software. (uart\_set\_line\_inverse) For the enable line we need a tri-state buffer and a level shifter. (ESP (3V3) \textrightarrow Logic Shift (5V) \textrightarrow tri-stat buff (5V tri) \textrightarrow enable pin)
+The logic is pretty easy, the data pin is of type Open Drain, but we have to isolate the meter from the microcontroller. For enabling and disabling I'm using the enable pin on the opto-isolator instead of the enable pin of the meter. That pin is tied to 5V, always enabled.
 \item SD card\\
 The SD-Card is connected to the VSPI pins, it has a FAT filesystem and contains one file config.txt which contains the necesary info to connect to wifi, the server ip, port, uri and API key. The code for the SD card is untested because I wasn't able to connect one to the ESP32.
 In the format: configName=configText\textbackslash n
+I'm currently working on a way to set the wifi credentials and other config via a web interface on the esp32 running as a acces point.
 \item Display\\
-I wanted to use a WaveShare Epaper dislay (3.7 inch, 4 colours), but I hadn't enough time to do anything with it. It is accesible via SPI with 2 extra control signals (command input or data and busy output)
-\item Rotary Encoder\\
-I wanted to use a rotary encoder with a switch to control select what data to show. I wanted to create a seporate task to check te rotary switch and report back to the main display task.
+This is implemented on the computer.
 \item PCB \\
 I gave up on my PCB after one month of troubleshooting , but I eventually figured out what the issue was. An overvoltage most likely destroyed both my ESP32 and my programmer.
-And I only began writing code 2 weeks before the deadline because I was too focussed on trying to find the hardware mistake.
-That's why I only finished the Sensor and Database side of the project. I ran out of time to write code and create documentation for my code.
+And I only began writing code 2 weeks before the deadline because I was too focussed on trying to find the hardware mistake.\\
+Afther the first presentation I created a small circuit using wires and components and soldered a new circuit together.
 \end{itemize}
 
 \vfill
 
+\begin{landscape}
+  \includepdf[landscape=true, pagecommand=\section{Schematic}, pages=1]{Schematic.pdf}
+\end{landscape}
+
+\iffalse
 \section{Faults}
 \begin{enumerate}
 \item PCB\\
@@ -610,7 +612,10 @@ That's why I only finished the Sensor and Database side of the project. I ran ou
 	\end{itemize}
 \end{enumerate}
 \vfill
+\fi
 \eject
+
+
 \section{Learning Curve}
 There is a big difference between using a microcontroller like the XC888, ATMEGA32U4 (What I previously used) and the ESP32
 \begin{itemize}
@@ -626,7 +631,7 @@ There is a big difference between using a microcontroller like the XC888, ATMEGA
 \section{Code}
 For the code go to \url{http://www.github.com/Sani7/SEM/tree/main/Code} \ I'm not going to list my code in this document, there is just to much of it and it will become a mess. And you have a nice blockdiagram of it.
 \section{Conclusion}
-I'm happy whith what I'v learned so far. It could have been better, but everybody says that when looking back to a project. Although I was only able to finish 2 of the 3 parts, I still think I did a good job in the time I had.
+I'm happy whith what I'v learned so far. It could have been better, but everybody says that when looking back to a project.
 
 \chapter{References}
 \url{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/} was my best friend and guide.\\
