@@ -4,6 +4,14 @@
 
   (paper "A4")
 
+  (title_block
+    (title "Data reading circuit")
+    (rev "2")
+    (company "Sani7")
+    (comment 1 "github.com/Sani7/SEM")
+    (comment 2 "(c) Sander Speetjens")
+  )
+
   (lib_symbols
     (symbol "Connector:Micro_SD_Card" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
       (property "Reference" "J" (id 0) (at -16.51 15.24 0)
@@ -1436,29 +1444,6 @@
     (pin "1" (uuid 2e17675b-4083-4a86-af21-98fc55aa55d8))
   )
 
-  (symbol (lib_id "Connector:RJ12") (at 30.48 35.56 0) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid 67ca49af-04af-4784-aec0-2ab4a28ac61d)
-    (property "Reference" "J1" (id 0) (at 22.1234 35.4584 0)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Value" "RJ12" (id 1) (at 22.1234 33.147 0)
-      (effects (font (size 1.27 1.27)) (justify right))
-    )
-    (property "Footprint" "Connector_RJ:RJ12_Amphenol_54601" (id 2) (at 30.48 34.925 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "2135977" (id 3) (at 30.48 34.925 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid e7a8ac21-1609-44fd-b69c-f6f73c3e070a))
-    (pin "2" (uuid 1d558bb7-ea4b-46cc-a17e-914117ed3068))
-    (pin "3" (uuid 936c14d6-5579-4dc5-a48f-de3b02aad059))
-    (pin "4" (uuid 2186ba28-882a-40eb-8c04-aae8a7988f31))
-    (pin "5" (uuid 88eb51d4-af3b-43be-8445-6d329ec52c31))
-    (pin "6" (uuid 1272b515-f4cf-4af9-8587-392a4ab432be))
-  )
-
   (symbol (lib_id "power:GND") (at 21.59 77.47 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid 704ac06d-12cf-4db4-bc7b-5d0fd91a4520)
@@ -1623,6 +1608,29 @@
     (pin "9" (uuid 62b0d776-4abe-4c08-88dc-0e8093a030f7))
   )
 
+  (symbol (lib_id "Connector:RJ12") (at 30.48 33.02 0) (mirror x) (unit 1)
+    (in_bom yes) (on_board yes)
+    (uuid d83f6d9f-8b2f-4436-8bd7-ccdd6381d75c)
+    (property "Reference" "J1" (id 0) (at 22.1234 33.1216 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Value" "RJ12" (id 1) (at 22.1234 35.433 0)
+      (effects (font (size 1.27 1.27)) (justify right))
+    )
+    (property "Footprint" "Connector_RJ:RJ12_Amphenol_54601" (id 2) (at 30.48 33.655 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "2135977" (id 3) (at 30.48 33.655 90)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid adc9497f-47a5-486d-971c-f82b432555ca))
+    (pin "2" (uuid c1404e1a-6957-40a7-97de-f1679d6d4d34))
+    (pin "3" (uuid 8530fe31-8e06-4d49-8f4f-03041144ead8))
+    (pin "4" (uuid c0665f6b-043e-4635-b28d-e3f04cb9f751))
+    (pin "5" (uuid 648ee813-5fd3-4f3c-b756-ac84c3d32b41))
+    (pin "6" (uuid 8ff8ac41-cef2-4a52-8e75-93c0895eabcf))
+  )
+
   (symbol (lib_id "power:+5VA") (at 43.18 26.035 0) (unit 1)
     (in_bom yes) (on_board yes)
     (uuid de9e44f9-7d3f-4b5d-8cca-0e93dd85a0b1)
@@ -1733,7 +1741,7 @@
     (path "/08327830-5c80-4303-a8ff-4c77031f942c"
       (reference "C1") (unit 1) (value "0.1u") (footprint "Capacitor_SMD:C_1812_4532Metric")
     )
-    (path "/67ca49af-04af-4784-aec0-2ab4a28ac61d"
+    (path "/d83f6d9f-8b2f-4436-8bd7-ccdd6381d75c"
       (reference "J1") (unit 1) (value "RJ12") (footprint "Connector_RJ:RJ12_Amphenol_54601")
     )
     (path "/a51e7c3b-2a08-492a-946b-d57ddd8fd14a"
