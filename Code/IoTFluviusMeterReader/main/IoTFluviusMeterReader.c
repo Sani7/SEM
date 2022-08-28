@@ -39,25 +39,25 @@ void app_main(void)
   ESP_LOGI(TAG, "ESP_WIFI_MODE_AP");
   wifi_init_sta(wifi_ssid, wifi_pswd);
   ESP_LOGI(TAG, "Connected");
-  
-  xTaskCreate(MeterTask, "MeterTask", 1024*8, NULL, 5, NULL);
+
+  xTaskCreate(MeterTask, "MeterTask", 1024 * 8, NULL, 5, NULL);
 }
 
 /**
  * @brief Main task read UART, decode and Post
- * 
+ *
  * @param arg no arguments necessary
  */
-void MeterTask(void* arg)
+void MeterTask(void *arg)
 {
-  long startMillis;
+  int64_t startMicros, endMicros;
   char uartData[RX_BUF_SIZE] = {0};
 
   fluviusData data;
 
   while (true)
   {
-    startMillis = esp_timer_get_time();
+    startMicros = esp_timer_get_time();
     memset(uartData, 0, RX_BUF_SIZE);
     // Request data
     ESP_ERROR_CHECK(gpio_set_level(LED_ACT, false));
@@ -102,16 +102,24 @@ void MeterTask(void* arg)
     // Ready for next request
     gpio_set_level(LED_ACT, false);
 
-    while (esp_timer_get_time() < (startMillis + period * 1000))
+    // Delay for period
+    do
     {
+      if (esp_timer_get_time() > startMicros)
+        endMicros = esp_timer_get_time() - startMicros;
+
+      else
+        endMicros = esp_timer_get_time() + startMicros;
       vTaskDelay(1);
-    }
+    } while (endMicros < period * 1000);
+    ESP_LOGI("Timer", "%lld", endMicros);
+    // vTaskDelay(period / portTICK_PERIOD_MS);
   }
 }
 
 /**
  * @brief setup a gpio pin
- * 
+ *
  * @param pin which pin? (number)
  * @param mode Input, Output, Input/Output
  * @param pull Pull-up/ Pull-down/ Floating
