@@ -36,13 +36,12 @@
 \contentsline {section}{\numberline {2.2}Proposed Project Specifications}{15}{section.2.2}%
 \contentsline {section}{\numberline {2.3}Hardware Diagram}{16}{section.2.3}%
 \contentsline {section}{\numberline {2.4}Block diagram}{17}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Block diagram}{18}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Gantt Chart}{19}{section.2.6}%
-\contentsline {chapter}{\numberline {3}The actual build}{20}{chapter.3}%
-\contentsline {section}{\numberline {3.1}My Goals}{20}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Details}{21}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Schematic}{22}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Learning Curve}{23}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Code}{23}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Conclusion}{23}{section.3.6}%
-\contentsline {chapter}{\numberline {4}References}{24}{chapter.4}%
+\contentsline {section}{\numberline {2.5}Gantt Chart}{18}{section.2.5}%
+\contentsline {chapter}{\numberline {3}The actual build}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}My Goals}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Details}{20}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Schematic}{21}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Learning Curve}{22}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Code}{22}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Conclusion}{22}{section.3.6}%
+\contentsline {chapter}{\numberline {4}References}{23}{chapter.4}%
