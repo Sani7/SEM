@@ -91,8 +91,8 @@ void MeterTask(void *arg)
     char post_data[500]; // The request will be build in this String
     sprintf(post_data, "api_key=%s&UL1=%.1f&UL2=%.1f&UL3=%.1f&IL1=%.1f&IL2=%.1f&IL3=%.1f&Pcl=%.3f&Pch=%.3f&Ppl=%.3f&Pph=%.3f&Pc=%.3f&Pp=%.3f&Vg=%.3f&Vw=%.3f",
             info.api_key, data.UL1, data.UL2, data.UL3, data.IL1, data.IL2,
-            data.IL3, data.CONSUMPTION_HIGH_TARIF,
-            data.CONSUMPTION_LOW_TARIF, data.PRODUCTION_HIGH_TARIF,
+            data.IL3, data.CONSUMPTION_LOW_TARIF,
+            data.CONSUMPTION_HIGH_TARIF, data.PRODUCTION_HIGH_TARIF,
             data.PRODUCTION_LOW_TARIF, data.TOTAL_POWER_CONSUMPTION,
             data.TOTAL_POWER_PRODUCTION, data.GAS_METER_M3, data.WATER_METER_M3);
 
