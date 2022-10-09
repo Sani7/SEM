@@ -34,4 +34,6 @@
 # Don't include the build folders
 build
 
+.vscode
+
 DS/fluvius_smartmeter/
