@@ -104,6 +104,7 @@ void wifi_init_sta(char *wifi_ssid, char *wifi_pswd)
     {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
                  wifi_ssid, wifi_pswd);
+        esp_restart();
     }
     else
     {
