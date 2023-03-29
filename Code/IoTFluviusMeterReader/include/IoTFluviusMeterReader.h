@@ -85,9 +85,5 @@
 #include "uart.h"
 #include "wifi.h"
 
-static const char *TAG = "IoT Module";
-/* FreeRTOS event group to signal when we are connected*/
-static EventGroupHandle_t s_wifi_event_group;
-
 void MeterTask(void* arg);
 void configure_pin(gpio_num_t pin, gpio_mode_t mode, gpio_pull_mode_t pull, gpio_int_type_t inter);

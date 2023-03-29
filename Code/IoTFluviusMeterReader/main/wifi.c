@@ -6,11 +6,15 @@
 #define WIFI_CONNECTED_BIT BIT0
 #define WIFI_FAIL_BIT BIT1
 
+/* FreeRTOS event group to signal when we are connected*/
+static EventGroupHandle_t s_wifi_event_group;
+
 static int s_retry_num = 0;
 
 static void event_handler(void *arg, esp_event_base_t event_base,
                           int32_t event_id, void *event_data)
 {
+    const char* TAG = "event_handler";
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START)
     {
         esp_wifi_connect();
@@ -40,6 +44,7 @@ static void event_handler(void *arg, esp_event_base_t event_base,
 
 void wifi_init_sta(char *wifi_ssid, char *wifi_pswd)
 {
+    const char* TAG = "wifi_init_sta";
     s_wifi_event_group = xEventGroupCreate();
 
     ESP_ERROR_CHECK(esp_netif_init());
@@ -104,6 +109,8 @@ void wifi_init_sta(char *wifi_ssid, char *wifi_pswd)
     {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
                  wifi_ssid, wifi_pswd);
+        
+        vTaskDelay(1000 / portTICK_PERIOD_MS);
         esp_restart();
     }
     else

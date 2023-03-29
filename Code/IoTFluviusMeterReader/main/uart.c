@@ -152,6 +152,7 @@ double ParseDataValue(char *datagramBuffer, char *key, int datablock)
  */
 bool decode_datagram(char *datagramBuffer, fluviusData *datagram)
 {
+    const char* TAG = "Decode datagram";
     // Find the start of the datagram
     char *startChar = strstr(datagramBuffer, "/");
 
@@ -161,7 +162,7 @@ bool decode_datagram(char *datagramBuffer, fluviusData *datagram)
     // If the end or start are not found we have a invalid datagram
     if (!startChar || !endChar)
     {
-        ESP_LOGI("Decode datagram", "Invalid datagram");
+        ESP_LOGI(TAG, "Invalid datagram");
         return true;
     }
 

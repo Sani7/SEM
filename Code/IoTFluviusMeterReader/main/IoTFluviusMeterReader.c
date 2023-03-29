@@ -1,5 +1,7 @@
 #include "IoTFluviusMeterReader.h"
 
+static const char *TAG = "IoT Module";
+
 http_server_info info;
 
 void app_main(void)
