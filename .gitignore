@@ -39,3 +39,5 @@ build
 DS/fluvius_smartmeter/
 
 Code/IoTFluviusMeterReader/sdkconfig
+
+Code/IoTFluviusMeterReader/sdkconfig.old

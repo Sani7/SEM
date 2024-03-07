@@ -14,7 +14,7 @@ static int s_retry_num = 0;
 static void event_handler(void *arg, esp_event_base_t event_base,
                           int32_t event_id, void *event_data)
 {
-    const char* TAG = "event_handler";
+    const char *TAG = "event_handler";
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_START)
     {
         esp_wifi_connect();
@@ -42,18 +42,44 @@ static void event_handler(void *arg, esp_event_base_t event_base,
     }
 }
 
+#define AP_NUM 5
 void wifi_init_sta(char *wifi_ssid, char *wifi_pswd)
 {
-    const char* TAG = "wifi_init_sta";
+    const char *TAG = "wifi_init_sta";
     s_wifi_event_group = xEventGroupCreate();
 
     ESP_ERROR_CHECK(esp_netif_init());
 
     ESP_ERROR_CHECK(esp_event_loop_create_default());
-    esp_netif_create_default_wifi_sta();
+    esp_netif_t *sta_netif = esp_netif_create_default_wifi_sta();
+    assert(sta_netif);
 
     wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+    ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
+    ESP_ERROR_CHECK(esp_wifi_start());
+    ESP_ERROR_CHECK(esp_wifi_scan_start(NULL, true));
+
+    bool foundAP = false;
+    wifi_ap_record_t *ap_info = (wifi_ap_record_t *)malloc(sizeof(wifi_ap_record_t) * AP_NUM);
+    uint16_t ap_num = AP_NUM;
+    while (foundAP == false)
+    {
+        
+        ap_num = AP_NUM;
+        ESP_ERROR_CHECK(esp_wifi_scan_get_ap_records(&ap_num, ap_info));
+        for (int i = 0; i < ap_num; i++)
+        {
+            if (strcmp((char *)ap_info[i].ssid, wifi_ssid) == 0)
+            {
+                ESP_LOGI(TAG, "Found SSID: %s", ap_info[i].ssid);
+                foundAP = true;
+                break;
+            }
+        }
+        
+    }
+    free(ap_info);
 
     esp_event_handler_instance_t instance_any_id;
     esp_event_handler_instance_t instance_got_ip;
@@ -84,6 +110,7 @@ void wifi_init_sta(char *wifi_ssid, char *wifi_pswd)
     strncpy((char *)wifi_config.sta.ssid, wifi_ssid, sizeof(wifi_config.sta.ssid));
     strncpy((char *)wifi_config.sta.password, wifi_pswd, sizeof(wifi_config.sta.password));
 
+    ESP_ERROR_CHECK(esp_wifi_stop());
     ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
     ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &wifi_config));
     ESP_ERROR_CHECK(esp_wifi_start());
@@ -109,9 +136,9 @@ void wifi_init_sta(char *wifi_ssid, char *wifi_pswd)
     {
         ESP_LOGI(TAG, "Failed to connect to SSID:%s, password:%s",
                  wifi_ssid, wifi_pswd);
-        
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
-        esp_restart();
+
+        // Delay of 1 minute and restart
+        vTaskDelay(60000 / portTICK_PERIOD_MS);
     }
     else
     {

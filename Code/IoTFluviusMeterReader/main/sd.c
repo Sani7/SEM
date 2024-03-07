@@ -133,7 +133,7 @@ bool readFileContents(const char *fileName, char *content, int length)
   }
 
   int i = 0;
-  char c;
+  int c;
   // first make the array all zeros
   memset(content, 0, length);
   c = fgetc(fp);
